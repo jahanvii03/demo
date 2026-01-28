@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils"
 
 
 const EMAIL_DOMAINS = [
-  { label: "Microsoft", value: "@microsoft.com" },
-  { label: "Amazon", value: "@amazon.com" },
-  { label: "Meta", value: "@meta.com" },
+  { label: "Microsoft", value: "@Microsoft.com" },
+  { label: "Amazon", value: "@Amazon.com" },
+  { label: "Meta", value: "@Meta.com" },
 ]
 
 export default function Login() {

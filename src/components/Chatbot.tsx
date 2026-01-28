@@ -29,7 +29,7 @@ export default function Chatbot() {
   console.log(user,'ok')
   const domain = user?.email.split("@")[1]   
   const company = domain?.split(".")[0]  
-console.log(company,'ok');
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -41,7 +41,7 @@ console.log(company,'ok');
 
   const sendMessageToAPI = async (userQuery: string) => {
     try {
-      const res = await fetch("http://localhost:8000/api/agents/retrieval", {
+      const res = await fetch(`${API_BASE_URL}/api/agents/retrieval`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

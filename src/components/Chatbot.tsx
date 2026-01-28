@@ -58,9 +58,11 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
         throw new Error("Failed to fetch bot response")
       }
 
-      const data = await res.json()
+      const data = await res.text()
+      console.log(data,'response');
+
       return {
-        content: data.content || "Sorry, I couldn't find an answer.",
+        content: data || "Sorry, I couldn't find an answer.",
       }
     } catch (error) {
       console.error(error)
@@ -69,7 +71,6 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
       }
     }
   }
-
   const handleSendMessage = async (messageText?: string) => {
     const text = messageText || input.trim()
     if (!text || isTyping) return

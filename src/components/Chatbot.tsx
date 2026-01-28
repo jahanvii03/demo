@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Bot, User, Send, Sparkles } from "lucide-react"
+import { Bot, User, Send } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 
 interface Message {
@@ -10,7 +10,6 @@ interface Message {
   type: "user" | "bot"
   content: string
   timestamp: string
-  suggestions?: string[]
 }
 
 const initialMessages: Message[] = [
@@ -19,11 +18,7 @@ const initialMessages: Message[] = [
     type: "bot",
     content: "Hello!",
     timestamp: new Date().toLocaleTimeString(),
-    suggestions: [
-      "What is the company relocation policy?",
-      "What is the leave policy?",
-      "Tell me about employee benefits",
-    ],
+   
   },
 ]
 
@@ -66,13 +61,11 @@ console.log(company,'ok');
       const data = await res.json()
       return {
         content: data.content || "Sorry, I couldn't find an answer.",
-        suggestions: data.suggestions || [],
       }
     } catch (error) {
       console.error(error)
       return {
         content: "Something went wrong. Please try again later.",
-        suggestions: [],
       }
     }
   }
@@ -94,18 +87,15 @@ console.log(company,'ok');
 
     const response = await sendMessageToAPI(text)
 
-    // setTimeout(() => {
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         type: "bot",
         content: response.content,
         timestamp: new Date().toLocaleTimeString(),
-        suggestions: response.suggestions,
       }
 
       setMessages((prev) => [...prev, botMessage])
       setIsTyping(false)
-    // }, 300)
   }
 
  
@@ -178,7 +168,7 @@ console.log(company,'ok');
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                // placeholder="Ask about your company policies…"
+                placeholder="Ask anything..."
                 className="flex-1"
               />
               <Button
